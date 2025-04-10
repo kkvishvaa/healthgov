@@ -17,7 +17,7 @@ function App() {
     formData.append('pdf', file);
 
     try {
-      const res = await axios.post('https://ssp-gpvi.onrender.com/upload', formData);
+      const res = await axios.post('https://healthgov.onrender.com/upload', formData);
       setMessage(res.data.message);
       await fetchUploadedFiles();
     } catch (err) {
@@ -27,10 +27,10 @@ function App() {
 
   const fetchUploadedFiles = async () => {
     try {
-      const res = await axios.get('https://ssp-gpvi.onrender.com/files');
+      const res = await axios.get('https://healthgov.onrender.com/files');
       const filesWithBlobs = await Promise.all(
         res.data.map(async (file) => {
-          const response = await axios.get(`https://ssp-gpvi.onrender.com/file/${file._id}`, {
+          const response = await axios.get(`https://healthgov.onrender.com/file/${file._id}`, {
             responseType: 'arraybuffer'
           });
           const blob = new Blob([response.data], { type: 'application/pdf' });
@@ -227,7 +227,7 @@ function App() {
                     <thead>
                       <tr>
                         <th>Document Name</th>
-                        <th>Upload Date</th>
+                        
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -235,7 +235,7 @@ function App() {
                       {uploadedFiles.map((file, index) => (
                         <tr key={index}>
                           <td>{file.name}</td>
-                          <td>{new Date(file.createdAt).toLocaleDateString()}</td>
+                         
                           <td>
                             <a
                               href={file.blobUrl}
